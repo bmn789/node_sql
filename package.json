@@ -1,0 +1,33 @@
+{
+  "name": "node_sql",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "tsx --watch src/app.ts ",
+    "build": "tsc",
+    "preview": "node dist/app.js",
+    "start": "node dist/app.js",
+    "pm2": "pm2 start dist/app.js",
+    "stop": "pm2 stop all"
+  },
+  "keywords": [],
+  "author": "Barath Nethra",
+  "license": "ISC",
+  "description": "Learning SQL with Node js along with REST API",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "method-override": "^3.0.0",
+    "pg": "^8.22.0",
+    "pm2": "^7.0.3",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/method-override": "^3.0.0",
+    "@types/pg": "^8.20.0",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
+  }
+}
