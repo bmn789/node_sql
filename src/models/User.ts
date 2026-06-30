@@ -1,5 +1,6 @@
 import pool from '@/config/db'
-import type { UserT } from '@/types'
+import type { Partial_OmitId, PickId, UserT } from '@/types'
+import Utils from '@/utils'
 import z from 'zod'
 
 
@@ -40,39 +41,54 @@ export default class User {
             SELECT * FROM users WHERE id = $1
             `, [id])
         const row = data.rows[0]
+        if (!row) {
+            throw Error("records not found")
+        }
 
         return row
     }
 
-    static async find(): Promise<{data: UserT[], count : number }> {
+    static async find(): Promise<{ data: UserT[], count: number }> {
 
         const { rows } = await pool.query("SELECT * FROM users")
         let total = await pool.query("SELECT count(*) FROM users")
-       const count = parseInt(total.rows[0].count)
+        const count = parseInt(total.rows[0].count)
 
         return { data: rows, count }
     }
 
-    static async update(id: Pick<UserT, "id">, record: Omit<UserT, "id">): Promise<UserT> {
+    static async update(id: PickId, record: Partial_OmitId): Promise<UserT> {
 
-        const values = userSchema.partial({ name: true, email: true }).omit({ id: true }).parse(record)
-        const { name, email } = values
-        let query = "", args: any[] = [id]
-        if (name && email) {
-            query = "(name = $2, email = $3)"
-            args.push(name, email)
-        } else if (name) {
-            query = "(name = $2)"
-            args.push(name)
-        } else {
-            query = "(email = $2)"
-            args.push(email)
+        if (!id) {
+            Utils.throw("Records not found", 400)
         }
-        const data = await pool.query(`
-            UPDATE users SET ${query} WHERE id = $1
-            `, args)
 
+        const { email, name } = userSchema.partial({ name: true, email: true }).omit({ id: true }).parse(record)
+        let query = "", args: any[] = [id]
+
+        if (name && email) {
+            query = "name = $2, email = $3"
+            args.push(name, email)
+        } else if (email) {
+            query = 'email = $2'
+            args.push(email)
+        } else {
+            query = 'name = $2'
+            args.push(name)
+        }
+
+
+        const fStr = `
+            UPDATE users 
+            SET ${query} 
+            WHERE id = $1
+            RETURNING *;
+            `
+        const data = await pool.query(fStr, args)
         const row = data.rows[0]
+        if (!row) {
+            Utils.throw("Records not found", 400)
+        }
         return row
     }
 
@@ -80,8 +96,13 @@ export default class User {
 
         const data = await pool.query(`
             DELETE FROM users WHERE id = $1
+            RETURNING *
             `, [id])
-        return data.rows[0]
+        const row = data.rows[0]
+        if (!row) {
+            Utils.throw("Records not found", 400)
+        }
+        return row
     }
 
 

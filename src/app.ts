@@ -2,6 +2,7 @@ import express from 'express'
 import userRouter from './routes/users.js'
 
 import db from "./config/db"
+import Utils from './utils/index.js'
 
 
 
@@ -16,7 +17,9 @@ app.use("/api", userRouter)
 
 
 app.use((err: Error, req: any, res: any, next: any) => {
-    res.status(500).send({ error: err.message || 'Something failed!' });
+    console.log(err)
+   const e = Utils.catch(err)
+    res.status(e.status).send(e);
 })
 
 

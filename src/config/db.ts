@@ -38,4 +38,4 @@ CREATE TABLE IF NOT EXISTS todos (
 
 }
 
-innitialize()
+// innitialize()

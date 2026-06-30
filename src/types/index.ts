@@ -13,3 +13,4 @@ export type TodoT = {
 
 export type OmitId = Omit<UserT, "id">
 export type PickId = Pick<UserT, "id">
+export type Partial_OmitId = Partial<OmitId>
