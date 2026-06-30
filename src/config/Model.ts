@@ -47,12 +47,13 @@ export function createModel<T extends Record<string, any>>({
             const { rows: total } = await pool.query(`SELECT COUNT(*) FROM ${table}`)
 
             return {
-                data: rows,
                 count: Number(total[0].count),
+                data: rows,
+
             }
         }
 
-        static async findById(id: number): Promise<T> {
+        static async findById(id: Pick<T, "id">): Promise<T> {
             const { rows } = await pool.query(
                 `SELECT * FROM ${table} WHERE id = $1`,
                 [id]

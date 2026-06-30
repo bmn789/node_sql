@@ -19,8 +19,8 @@ app.use("/api", apiRoute)
 
 
 app.use((err: Error, req: any, res: any, next: any) => {
-    console.log(err)
-   const e = Utils.catch(err)
+    // console.log(err)
+    const e = Utils.catch(err)
     res.status(e.status).send(e);
 })
 

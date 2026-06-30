@@ -5,10 +5,10 @@ export type UserT = {
 }
 
 export type TodoT = {
-    id: number,
+    id: string,
     title: string;
     description: string;
-    owner_id: number
+    owner_id: string
 }
 
 export type OmitId = Omit<UserT, "id">
