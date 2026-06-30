@@ -1,19 +1,21 @@
 import express from 'express'
-import userRouter from './routes/users.js'
+import userRouter from './routes/user.route.js'
 
 import db from "./config/db"
 import Utils from './utils/index.js'
+import apiRoute from './routes/api.route.js'
 
 
 
 const app = express()
 app.use(express.json())
 
+
 app.get("/api/health", (req, res) => {
     throw Error("not")
 })
 
-app.use("/api", userRouter)
+app.use("/api", apiRoute)
 
 
 app.use((err: Error, req: any, res: any, next: any) => {

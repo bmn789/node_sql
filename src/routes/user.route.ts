@@ -4,15 +4,15 @@ import allUsers from "@/controller/user/allUser";
 import updateUsers from "@/controller/user/updateUser";
 import deleteUser from "@/controller/user/deleteUser";
 
-const userRouter = Router()
+const userRoute = Router()
 
-userRouter.get("/user/all",allUsers)
+userRoute.get("/user/all",allUsers)
 
-userRouter.post("/user", addUser)
+userRoute.post("/user", addUser)
 
-userRouter.put("/user/:userId", updateUsers)
-userRouter.delete("/user/:userId", deleteUser)
+userRoute.put("/user/:userId", updateUsers)
+userRoute.delete("/user/:userId", deleteUser)
 
 
 
-export default userRouter
+export default userRoute
