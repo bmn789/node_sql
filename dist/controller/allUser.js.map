@@ -1,0 +1,1 @@
+{"version":3,"file":"allUser.js","sourceRoot":"","sources":["../../src/controller/allUser.ts"],"names":[],"mappings":"AAAA,OAAO,IAAI,MAAM,eAAe,CAAC;AAGjC,MAAM,QAAQ,GAAmB,KAAK,EAAE,GAAG,EAAE,GAAG,EAAE,EAAE;IAEhD,MAAM,IAAI,GAAG,MAAM,IAAI,CAAC,IAAI,EAAE,CAAA;IAC9B,OAAO,GAAG,CAAC,IAAI,CAAC,IAAI,CAAC,CAAA;AAEzB,CAAC,CAAA;AAED,eAAe,QAAQ,CAAA"}
